@@ -7,6 +7,8 @@ RUN python -m venv /venv
 ENV PATH="/venv/bin:$PATH"
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+ENV TERM=xterm-256color
+RUN sed -i 's/#force_color_prompt=yes/force_color_prompt=yes/g' /root/.bashrc
 RUN python -m pip install --upgrade pip
 
 COPY install-packages.sh .

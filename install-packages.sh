@@ -20,6 +20,7 @@ apt-get -y upgrade
 
 # Install network packages
 apt-get -y install --no-install-recommends \
+    build-essential \
     iproute2 \
     iputils-ping
 

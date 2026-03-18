@@ -1,6 +1,6 @@
 services:
   gstreamer_custom:
-    image: gstreamer_custom:0.1.0
+    image: gstreamer_custom:0.2.0
     container_name: gstreamer_custom
     build: .
     volumes:
