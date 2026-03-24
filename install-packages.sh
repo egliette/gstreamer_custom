@@ -57,6 +57,19 @@ apt-get -y  install --no-install-recommends \
     gir1.2-gtk-3.0 \
     graphviz
 
+# Install C tools
+apt-get -y  install --no-install-recommends \
+    meson \
+    ninja-build \
+    libopencv-dev
+
+# Install ONNXRuntime
+wget https://github.com/microsoft/onnxruntime/releases/download/v1.18.0/onnxruntime-linux-x64-1.18.0.tgz
+tar -xzf onnxruntime-linux-x64-1.18.0.tgz
+cp -r onnxruntime-linux-x64-1.18.0/include/* /usr/local/include/
+cp -r onnxruntime-linux-x64-1.18.0/lib/*     /usr/local/lib/
+ldconfig
+
 # Delete cached files we don't need anymore (note that if you're
 # using official Docker images for Debian or Ubuntu, this happens
 # automatically, you don't need to do it yourself):
