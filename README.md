@@ -25,3 +25,9 @@ gst-launch-1.0 filesrc location=videos/clip.mp4 ! \
     yolov8infer model=models/yolov8n.onnx ! \
     videoconvert ! autovideosink
 ```
+
+## ✅ TODO
+- [ ] Write an object detection plugin with batching inference
+- [ ] Write a streammux plugin
+- [ ] Write an annotation plugin
+- [ ] Write an object tracking plugin
