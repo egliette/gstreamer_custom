@@ -19,3 +19,9 @@ RUN ./install-packages.sh
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt && \
     pip install opencv-python-headless
+
+# Make the GStreamer plugin discoverable at runtime
+ENV GST_PLUGIN_PATH="/usr/local/lib/gstreamer-1.0"
+
+# Make the ONNX Runtime shared library findable at runtime
+ENV LD_LIBRARY_PATH="/usr/local/lib:${LD_LIBRARY_PATH:-}"

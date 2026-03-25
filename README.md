@@ -1,43 +1,27 @@
-# gst-myfilter
+# GStreamer YOLOv8 Plugin
 
-A GStreamer plugin that inverts video frame brightness.
+A custom GStreamer element (`yolov8infer`) for real-time object detection using YOLOv8 ONNX models and CUDA acceleration.
 
-## Dependencies
+## 🚀 Quick Start (Docker)
 
-```bash
-sudo apt install gstreamer1.0-tools libgstreamer1.0-dev \
-  libgstreamer-plugins-base1.0-dev meson ninja-build pkg-config
-```
+Ensure you have **NVIDIA Container Toolkit** installed.
 
-## Build & Install
+1.  **Build and Start:** `make build`
+2.  **Enter Container:** `make reattach`
+3.  **Compile (inside container):** `make compile`
+4.  **Run Test:** `make test`
 
-```bash
-meson setup build --prefix=/usr --libdir=/usr/lib/x86_64-linux-gnu
-ninja -C build
-sudo ninja -C build install
-rm -f ~/.cache/gstreamer-1.0/registry.*.bin
-```
+## 🔌 Properties (`yolov8infer`)
 
-> **Note:** If your system is not x86_64, find the correct libdir with:
-> `find /usr /lib -name "libgstvideotestsrc.so" 2>/dev/null`
+- `model`: Path to ONNX file (Required).
+- `conf-thresh`: Confidence threshold (Default: 0.45).
+- `iou-thresh`: NMS threshold (Default: 0.45).
 
-## Usage
+## 📺 Usage Example
 
 ```bash
-# sample
-gst-launch-1.0 videotestsrc pattern=snow ! videoconvert ! myfilter invert=true ! videoconvert ! autovideosink
-
-# real video
-gst-launch-1.0 filesrc location=clip.mp4 ! \
-  decodebin ! \
-  videoconvert ! \
-  myfilter invert=true ! \
-  videoconvert ! \
-  autovideosink
+gst-launch-1.0 filesrc location=videos/clip.mp4 ! \
+    decodebin ! video/x-raw,format=BGR ! \
+    yolov8infer model=models/yolov8n.onnx ! \
+    videoconvert ! autovideosink
 ```
-
-## Properties
-
-| Property | Type    | Default | Description             |
-|----------|---------|---------|-------------------------|
-| `invert` | boolean | `true`  | Enable pixel inversion  |

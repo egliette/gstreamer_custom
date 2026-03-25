@@ -21,11 +21,12 @@ apt-get -y upgrade
 # Install network packages
 apt-get -y install --no-install-recommends \
     build-essential \
+    g++ \
     iproute2 \
     iputils-ping
 
 # Install Gstreamer
-apt-get -y  install --no-install-recommends  \
+apt-get -y install --no-install-recommends \
     htop \
     libgstreamer1.0-dev \
     libgstreamer-plugins-base1.0-dev \
@@ -44,7 +45,7 @@ apt-get -y  install --no-install-recommends  \
     gstreamer1.0-pulseaudio
 
 # Install PyGObject for Gstreamer Python Binding
-apt-get -y  install --no-install-recommends \
+apt-get -y install --no-install-recommends \
     pkg-config \
     ffmpeg \
     libcairo2-dev \
@@ -57,18 +58,22 @@ apt-get -y  install --no-install-recommends \
     gir1.2-gtk-3.0 \
     graphviz
 
-# Install C tools
-apt-get -y  install --no-install-recommends \
+# Install C/C++ build tools
+apt-get -y install --no-install-recommends \
+    cmake \
     meson \
     ninja-build \
-    libopencv-dev
+    libopencv-dev \
+    libglib2.0-dev \
+    wget
 
-# Install ONNXRuntime
-wget https://github.com/microsoft/onnxruntime/releases/download/v1.18.0/onnxruntime-linux-x64-1.18.0.tgz
-tar -xzf onnxruntime-linux-x64-1.18.0.tgz
-cp -r onnxruntime-linux-x64-1.18.0/include/* /usr/local/include/
-cp -r onnxruntime-linux-x64-1.18.0/lib/*     /usr/local/lib/
+# Install ONNXRuntime (GPU build, installs into /usr/local — matches CMakeLists ORT_ROOT)
+wget https://github.com/microsoft/onnxruntime/releases/download/v1.20.1/onnxruntime-linux-x64-gpu-1.20.1.tgz
+tar -xzf onnxruntime-linux-x64-gpu-1.20.1.tgz
+cp -r onnxruntime-linux-x64-gpu-1.20.1/include/* /usr/local/include/
+cp -r onnxruntime-linux-x64-gpu-1.20.1/lib/*     /usr/local/lib/
 ldconfig
+rm -rf onnxruntime-linux-x64-gpu-1.20.1 onnxruntime-linux-x64-gpu-1.20.1.tgz
 
 # Delete cached files we don't need anymore (note that if you're
 # using official Docker images for Debian or Ubuntu, this happens
